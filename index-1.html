@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guide de bienvenue — Bungalows Sainte-Luce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --lagoon:#15332D;
+    --lagoon-light:#1F4A41;
+    --rust:#C8602F;
+    --rust-light:#E07A45;
+    --sand:#F3ECDC;
+    --sand-deep:#E7DCC2;
+    --grey:#454A48;
+    --foam:#FFFFFF;
+    --gold:#C9A96E;
+    --ok:#3F7A5C;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--grey);
+    font-family:'Fraunces',serif;
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:84px;
+  }
+  .stencil{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.02em;}
+  .utility{font-family:'Inter',sans-serif;}
+  button{font-family:'Inter',sans-serif;cursor:pointer;border:none;background:none;color:inherit;}
+  a{color:inherit;}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--rust-light);outline-offset:2px;}
+
+  /* HEADER */
+  .topbar{background:var(--lagoon);color:var(--sand);padding:18px 18px 22px;position:relative;overflow:hidden;}
+  .topbar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0.025) 0px,rgba(255,255,255,0.025) 2px,transparent 2px,transparent 10px);pointer-events:none;}
+  .topbar-row{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;}
+  .eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin:0 0 4px;}
+  .bungalow-title{font-size:34px;line-height:1;margin:0;display:flex;align-items:baseline;gap:8px;text-shadow:1px 1px 0 rgba(0,0,0,0.25);}
+  .bungalow-title .num{color:var(--rust-light);}
+  .topbar-actions{display:flex;gap:8px;}
+  .pill-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:var(--sand);border-radius:20px;padding:7px 12px;font-size:12px;font-weight:600;letter-spacing:0.03em;display:flex;align-items:center;gap:5px;}
+  .pill-btn:hover{background:rgba(255,255,255,0.18);}
+  .bungalow-select{display:flex;background:var(--lagoon-light);border-top:1px solid rgba(255,255,255,0.08);position:relative;z-index:1;}
+  .bungalow-select button{flex:1;padding:10px 0;font-family:'Big Shoulders Display',sans-serif;font-weight:700;font-size:15px;color:rgba(243,236,220,0.55);border-right:1px solid rgba(0,0,0,0.18);position:relative;}
+  .bungalow-select button:last-child{border-right:none;}
+  .bungalow-select button.active{color:var(--sand);background:rgba(200,96,47,0.18);box-shadow:inset 0 -3px 0 var(--rust);}
+
+  /* MAIN */
+  main{padding:18px;max-width:560px;margin:0 auto;}
+  .section-title{font-size:22px;margin:0 0 14px;color:var(--lagoon);}
+  .card{background:var(--foam);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(21,51,45,0.08);}
+  .muted{color:#8b8378;font-size:13px;font-family:'Inter',sans-serif;}
+
+  /* WIFI */
+  .wifi-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--sand-deep);}
+  .wifi-row:last-child{border-bottom:none;}
+  .wifi-label{font-family:'Inter',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#8b8378;}
+  .wifi-value{font-family:'Inter',sans-serif;font-weight:600;font-size:18px;color:var(--lagoon);}
+  .icon-btn{background:var(--sand);border-radius:8px;padding:8px 10px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--lagoon);}
+  .icon-btn:hover{background:var(--sand-deep);}
+  .help-line{display:flex;gap:8px;align-items:center;font-family:'Inter',sans-serif;font-size:13px;margin-top:4px;color:var(--grey);}
+
+  /* LOGEMENT */
+  .info-grid{display:flex;gap:10px;margin-bottom:14px;}
+  .info-tile{flex:1;background:var(--lagoon);color:var(--sand);border-radius:var(--radius);padding:14px;text-align:center;}
+  .info-tile .stencil{font-size:20px;}
+  .info-tile .utility{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px;}
+  ul.clean{margin:0;padding:0;list-style:none;}
+  ul.clean li{padding:9px 0;border-bottom:1px solid var(--sand-deep);font-size:15px;display:flex;gap:10px;}
+  ul.clean li:last-child{border-bottom:none;}
+  ul.clean li .dot{color:var(--rust);font-family:'Inter',sans-serif;}
+  .contact-card{background:var(--lagoon);color:var(--sand);}
+  .contact-card a{font-family:'Inter',sans-serif;font-weight:700;font-size:19px;color:var(--gold);text-decoration:none;}
+
+  /* ALENTOURS */
+  /* Filter chips */
+  .filters{display:flex;gap:8px;overflow-x:auto;padding:0 0 4px;margin-bottom:4px;scrollbar-width:none;}
+  .filters::-webkit-scrollbar{display:none;}
+  .filter-chip{
+    flex-shrink:0;
+    background:var(--foam);
+    border:1.5px solid var(--sand-deep);
+    border-radius:20px;
+    padding:7px 13px;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    color:var(--grey);
+    white-space:nowrap;
+  }
+  .filter-chip.active{background:var(--lagoon);color:var(--sand);border-color:var(--lagoon);}
+  .filter-chip:hover:not(.active){background:var(--sand-deep);}
+
+  .cat-title{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--rust);margin:22px 0 10px;}
+  .cat-title:first-of-type{margin-top:0;}
+  .place-card{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .place-name{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--lagoon);}
+  .place-meta{display:flex;gap:8px;align-items:center;margin-top:2px;}
+  .place-rating{font-size:12px;color:var(--gold);font-family:'Inter',sans-serif;}
+  .place-badge{font-size:10px;font-family:'Inter',sans-serif;font-weight:700;background:var(--sand);color:var(--grey);border-radius:4px;padding:2px 6px;text-transform:uppercase;letter-spacing:0.05em;}
+  .place-note{font-size:14px;margin:5px 0 0;}
+  .place-link{flex-shrink:0;background:var(--rust);color:#fff;border-radius:8px;padding:9px 12px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;}
+  .place-link:hover{background:var(--rust-light);}
+
+  /* AVIS */
+  .stars{display:flex;gap:6px;margin:10px 0 16px;}
+  .star{font-size:30px;color:var(--sand-deep);line-height:1;}
+  .star.filled{color:var(--gold);}
+  textarea,input[type=text]{width:100%;font-family:'Inter',sans-serif;font-size:15px;border:1px solid var(--sand-deep);border-radius:10px;padding:11px;margin-bottom:12px;background:var(--sand);color:var(--grey);}
+  textarea{min-height:90px;resize:vertical;}
+  .submit-btn{width:100%;background:var(--rust);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:15px;padding:13px;border-radius:10px;}
+  .submit-btn:hover{background:var(--rust-light);}
+  .submit-btn:disabled{opacity:0.5;cursor:default;}
+  .thanks-msg{background:#EAF3ED;color:var(--ok);border-radius:10px;padding:11px 14px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;margin-bottom:14px;}
+  .avg-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;}
+  .avg-num{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:36px;color:var(--lagoon);}
+  .review-item{padding:12px 0;border-bottom:1px solid var(--sand-deep);}
+  .review-item:last-child{border-bottom:none;}
+  .review-head{display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--lagoon);}
+  .review-stars{color:var(--gold);font-size:13px;}
+  .review-text{font-size:14px;margin:5px 0 0;}
+  .review-date{font-family:'Inter',sans-serif;font-size:11px;color:#a39c8e;}
+
+  /* TABBAR */
+  .tabbar{position:fixed;bottom:0;left:0;right:0;background:var(--lagoon);display:flex;z-index:10;padding-bottom:env(safe-area-inset-bottom);}
+  .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 2px 9px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:rgba(243,236,220,0.5);position:relative;border-right:1px solid rgba(0,0,0,0.2);}
+  .tabbar button:last-child{border-right:none;}
+  .tabbar button .ic{font-size:19px;}
+  .tabbar button.active{color:var(--sand);}
+  .tabbar button.active::after{content:"";position:absolute;top:0;left:18%;right:18%;height:3px;background:var(--rust);border-radius:0 0 3px 3px;}
+
+  /* MODAL */
+  .modal{position:fixed;inset:0;background:rgba(21,51,45,0.78);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px;}
+  .modal.hidden{display:none;}
+  .modal-card{background:#fff;border-radius:16px;padding:26px 22px;text-align:center;max-width:320px;}
+  .modal-card p{font-size:14px;color:var(--grey);margin:14px 0 18px;}
+  #qrcode{display:flex;justify-content:center;margin:0 auto;}
+  .modal-close{background:var(--lagoon);color:#fff;border-radius:10px;padding:10px 20px;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-row">
+    <div>
+      <p class="eyebrow" id="eyebrowTxt">CONCIERGERIE · SAINTE-LUCE</p>
+      <h1 class="bungalow-title stencil"><span id="bungalowWord">BUNGALOW</span> <span class="num" id="bungalowNum">01</span></h1>
+    </div>
+    <div class="topbar-actions">
+      <button class="pill-btn" id="langToggle">🌐 EN</button>
+      <button class="pill-btn" id="qrBtn">⛶ <span id="qrBtnLabel">QR</span></button>
+    </div>
+  </div>
+</header>
+<nav class="bungalow-select" id="bungalowSelect"></nav>
+
+<main id="tabContent"></main>
+
+<nav class="tabbar" id="tabbar">
+  <button data-tab="wifi" class="active"><span class="ic">📶</span><span id="lbl-wifi">Wi-Fi</span></button>
+  <button data-tab="logement"><span class="ic">🏠</span><span id="lbl-logement">Logement</span></button>
+  <button data-tab="alentours"><span class="ic">📍</span><span id="lbl-alentours">Alentours</span></button>
+  <button data-tab="allergenes"><span class="ic">🥗</span><span id="lbl-allergenes">Allergènes</span></button>
+  <button data-tab="chambre"><span class="ic">♿</span><span id="lbl-chambre">Chambre</span></button>
+  <button data-tab="avis"><span class="ic">⭐</span><span id="lbl-avis">Avis</span></button>
+</nav>
+
+<div class="modal hidden" id="qrModal">
+  <div class="modal-card">
+    <div id="qrcode"></div>
+    <p id="qrInstructions">Imprimez ce QR code et collez-le dans le bungalow.</p>
+    <button class="modal-close" id="closeQr">Fermer</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   BUNGALOWS CONFIG — éditez ici
+   ============================================================ */
+const BUNGALOWS = [
+  {id:1,ssid:"SteLuce-Bungalow-01",pass:"AmbreLagon26!",checkin:"15:00",checkout:"11:00"},
+  {id:2,ssid:"SteLuce-Bungalow-02",pass:"CorailVague26!",checkin:"15:00",checkout:"11:00"},
+  {id:3,ssid:"SteLuce-Bungalow-03",pass:"SableDoux26!",checkin:"15:00",checkout:"11:00"},
+  {id:4,ssid:"SteLuce-Bungalow-04",pass:"GoldenBay26!",checkin:"15:00",checkout:"11:00"},
+  {id:5,ssid:"SteLuce-Bungalow-05",pass:"LagonBleu26!",checkin:"15:00",checkout:"11:00"},
+];
+const CONTACT_PHONE = "+596 696 00 00 00";
+
+/* ============================================================
+   PLACES — Toutes catégories
+   ============================================================ */
+const PLACES = {
+  plages:[
+    {name:"Plage de Sainte-Luce",placeId:"ChIJuWy_1eAhQIwRYyNGBiETCOE",rating:4.6,
+     note:{fr:"Grande plage de sable fin avec plusieurs criques ombragées, idéale en famille.",en:"Long sandy beach with shaded coves, perfect for families."}},
+    {name:"Plage de l'Anse Désert / Fond Larion",placeId:"ChIJR1ijQQAhQIwR-tfthdqmqcE",rating:4.6,
+     note:{fr:"Crique tranquille, eau cristalline, petit lagon naturel abrité.",en:"Quiet cove, crystal-clear water, sheltered natural lagoon."}},
+    {name:"Plage Corps de Garde",placeId:"ChIJMyMnVQAhQIwR3xemn5abm5Y",rating:4.6,
+     note:{fr:"Grande plage, entrée très douce dans l'eau, superbe au coucher de soleil.",en:"Large beach, very gentle entry into the water, stunning at sunset."}}
+  ],
+  nautique:[
+    {name:"Jet Adventure & Watersports",placeId:"ChIJNfUwxPUhQIwRwyQMq4aOP4w",rating:4.8,badge:{fr:"Jet-ski · Bouée",en:"Jet-ski · Tubing"},
+     note:{fr:"Jet-ski en excursion guidée (45 min), bouée, snorkeling — personnel anglophone. Ouvert 7j/7.",en:"Guided jet-ski tours (45 min), tubing, snorkeling. English-speaking staff. Open daily."}},
+    {name:"Kayak Mangrove Martinique",placeId:"ChIJJ2uFK8sfQIwRdifIQh9I5pw",rating:5.0,badge:{fr:"Kayak · Nature",en:"Kayak · Nature"},
+     note:{fr:"Balade kayak en mangrove avec Bernard, guide passionné. Apéro planteur en fin de sortie !",en:"Kayak tour through the mangrove with passionate guide Bernard. Ends with a rum punch aperitif!"}},
+    {name:"South Discover Base Nautique",placeId:"ChIJQfaGq2EhQIwRehntbsFqSII",rating:5.0,badge:{fr:"Voile · Kayak",en:"Sailing · Kayak"},
+     note:{fr:"Voile, optimist, kayak — cours pour enfants dès 5 ans et adultes. Plage Corps de Garde.",en:"Sailing, optimist, kayak — lessons from age 5. At Corps de Garde beach."}},
+    {name:"Kawan Plongée",placeId:"ChIJ77-9H48hQIwRiWwKj2BMG8M",rating:4.9,badge:{fr:"Plongée",en:"Scuba diving"},
+     note:{fr:"Club de plongée au cœur du village, baptêmes dès 8 ans, sites magnifiques au large.",en:"Dive club in the village center, discover dives from age 8, beautiful offshore sites."}}
+  ],
+  restaurants:[
+    {name:"Case Coco",placeId:"ChIJT3WHcowhQIwRd6THkR-OgKA",rating:4.5,
+     note:{fr:"Cuisine française revisitée Antilles, réputée pour le homard — réservation indispensable.",en:"French cuisine with Antillean flair, famous for lobster — booking essential."}},
+    {name:"Le Manza",placeId:"ChIJy3lKuLUfQIwR4if4haEV3zA",rating:4.8,
+     note:{fr:"Italien pieds dans le sable, terrasse sous un amandier centenaire. Rhums Trois-Rivières à déguster sur place.",en:"Italian dining on the beach, terrace under an old almond tree. Trois-Rivières rums on site."}},
+    {name:"La Kabananou",placeId:"ChIJwcTa-_4hQIwRqr48MYXyB8g",rating:4.7,
+     note:{fr:"Ambiance très décontractée, plateaux de fruits de mer généreux, ceviche de thon.",en:"Super laid-back vibe, generous seafood platters, tuna ceviche."}},
+    {name:"Perle Bleue",placeId:"ChIJuc0jflEfQIwRe7Z5QxQ8Oh4",rating:4.2,
+     note:{fr:"Cuisine créole et française en bord de mer à Anse Mabouya.",en:"Creole and French cuisine by the sea at Anse Mabouya."}}
+  ],
+  pizzeria:[
+    {name:"Le Zen Restaurant-Pizzéria",placeId:"ChIJf9tU9-AfQIwRJyj3Hk8WLyA",rating:4.4,
+     note:{fr:"Pizzas et cuisine monde, à l'entrée de la plage de l'hôtel Karibéa. Terrasse couverte sympa.",en:"Pizzas and world cuisine at the Karibéa hotel beach entrance. Nice covered terrace."}}
+  ],
+  marche:[
+    {name:"Marché couvert de Sainte-Luce",placeId:"ChIJLcnpGI8hQIwRHXqduMlaz0A",rating:4.0,
+     note:{fr:"Marché aux poissons, fruits et légumes locaux. Ouvert tous les matins 7h30–13h.",en:"Fish, fruit and local produce market. Open every morning 7:30–1pm."}}
+  ],
+  courses:[
+    {name:"Carrefour Express",placeId:"ChIJrTV-DvchQIwRqPKgfwvpzWM",rating:3.6,badge:{fr:"Supérette",en:"Supermarket"},
+     note:{fr:"Le supermarché le plus proche. Ouvert lun–sam 8h–20h, dim 8h–13h.",en:"Closest supermarket. Open Mon–Sat 8am–8pm, Sun 8am–1pm."}},
+    {name:"Ti'boutik",placeId:"ChIJISiHUwAhQIwRmLUUM709Mx0",rating:4.3,badge:{fr:"Épicerie + snack",en:"Grocery + snack"},
+     note:{fr:"Épicerie de quartier avec snack — burgers maison, planters punch maison. Ouvert tard le soir.",en:"Neighbourhood grocery with homemade burgers and rum punch. Open late evenings."}},
+    {name:"Centre Commercial Génipa",placeId:"ChIJI4TneQmgaowRc9jM-HSoG5o",rating:4.4,badge:{fr:"Grand Carrefour",en:"Large Carrefour"},
+     note:{fr:"Grand Carrefour + galerie marchande à Ducos. Prix compétitifs, large choix.",en:"Large Carrefour + shopping gallery in Ducos. Competitive prices, wide range."}}
+  ],
+  shopping:[
+    {name:"La Galleria",placeId:"ChIJV_ck_RShaowRKFKscmO5hh8",rating:4.1,badge:{fr:"Centre commercial",en:"Shopping mall"},
+     note:{fr:"Le plus grand centre commercial de l'île au Lamentin : mode, beauté, restauration.",en:"Martinique's largest mall in Le Lamentin: fashion, beauty, food."}},
+    {name:"Marché de Saint-Pierre / Fort-de-France",placeId:"ChIJV_ck_RShaowRKFKscmO5hh8",rating:4.1,badge:{fr:"Artisanat · Souvenirs",en:"Crafts · Souvenirs"},
+     note:{fr:"Parfums, épices, bijoux créoles, madras — idéal pour vos cadeaux et souvenirs.",en:"Perfumes, spices, Creole jewelry, madras fabric — ideal for gifts and souvenirs."}}
+  ],
+  galeries:[
+    {name:"Karib'Cultur",placeId:"ChIJSUzvzainaowR5rABeAr8WUo",rating:4.9,badge:{fr:"Galerie · Atelier",en:"Gallery · Workshop"},
+     note:{fr:"Galerie d'art amérindien et ateliers créatifs (poterie, bijoux). Entrée gratuite.",en:"Amerindian art gallery and creative workshops (pottery, jewelry). Free entry."}},
+    {name:"Village de la Poterie — Artimuse",placeId:"ChIJqcjbkr0jQIwREQky35yAf_k",rating:5.0,badge:{fr:"Poterie · Art",en:"Pottery · Art"},
+     note:{fr:"Village artisanal aux Trois-Îlets : potiers, artisans, vue mer.",en:"Craft village in Les Trois-Îlets: potters, artisans, sea view."}}
+  ],
+  enfants:[
+    {name:"Mangofil",placeId:"ChIJnSEHCFoeQIwRMFITImiTZR8",rating:4.3,badge:{fr:"Accrobranche · Tyrolienne",en:"Tree climbing · Zip-line"},
+     note:{fr:"Parcours accrobranche, tyroliennes, mini-golf en forêt aux Trois-Îlets. Enfants et adultes.",en:"Tree climbing, zip-lines, mini-golf in the forest at Les Trois-Îlets. All ages."}},
+    {name:"Parkadonf",placeId:"ChIJuwUwqBQdQIwRhXQLDFNpN9I",rating:4.5,badge:{fr:"Parc jeux",en:"Play park"},
+     note:{fr:"Parc de jeux et activités pour enfants, idéal anniversaires. Anses d'Arlets.",en:"Play park and activities for children, great for birthdays. Anses d'Arlets."}}
+  ],
+  soirees:[
+    {name:"H Club",placeId:"ChIJFR58Y5ehaowR2-jNrKki8n0",rating:3.7,badge:{fr:"Club · Zouk",en:"Club · Zouk"},
+     note:{fr:"Boîte de nuit du Sud à Ducos — ambiance zouk, kompa, salsa. Ven–sam dès 22h.",en:"South Martinique's club in Ducos — zouk, kompa, salsa vibes. Fri–Sat from 10pm."}},
+    {name:"Espace Loisirs",placeId:"ChIJFRluiGqfaowRZsJMVV4qTdU",rating:3.7,badge:{fr:"Club",en:"Nightclub"},
+     note:{fr:"Club de nuit au François avec soirées thématiques le week-end. Ambiance locale.",en:"Nightclub in Le François with themed weekend nights. Local crowd and atmosphere."}}
+  ],
+  histoire:[
+    {name:"Mémorial Cap 110 — Anse Caffard",placeId:"ChIJzchhhVgZQIwRVEpjmZjm0W8",rating:4.6,badge:{fr:"Monument",en:"Memorial"},
+     note:{fr:"Mémorial émouvant dédié à l'esclavage : 20 statues de bronze face à la mer, vue imprenable. Gratuit.",en:"Moving slavery memorial: 20 bronze statues facing the sea, breathtaking view. Free entry."}},
+    {name:"Habitation Clément",placeId:"ChIJRUy95-GeaowR_8sqT93ZDqk",rating:4.6,badge:{fr:"Domaine rhum",en:"Rum estate"},
+     note:{fr:"Magnifique domaine rhum au François — visite guidée, dégustation, jardin tropical.",en:"Beautiful rum estate in Le François — guided tour, tasting, tropical garden."}},
+    {name:"La Savane des Esclaves",placeId:"ChIJx7uK2XseQIwROAvTsSsSAuM",rating:4.6,badge:{fr:"Musée",en:"Museum"},
+     note:{fr:"Musée immersif sur la vie des esclaves aux Trois-Îlets — émouvant et très bien conçu.",en:"Immersive museum on enslaved people's lives at Les Trois-Îlets — moving and beautifully done."}},
+    {name:"Fort Saint-Louis — Visite guidée",placeId:"ChIJhaVmpeynaowRE60juN3zXjg",rating:4.4,badge:{fr:"Fort · Histoire",en:"Fort · History"},
+     note:{fr:"Fort militaire actif à Fort-de-France, visites guidées 8€. Vue panoramique sur la baie.",en:"Active military fort in Fort-de-France, guided tours €8. Panoramic bay views."}},
+    {name:"Musée Frank A. Perret — Saint-Pierre",placeId:"ChIJN3EsNSiwaowRLVCqTllFUms",rating:4.4,badge:{fr:"Volcan · Histoire",en:"Volcano · History"},
+     note:{fr:"Mémorial de la catastrophe volcanique de 1902 à Saint-Pierre — comme Pompéi des Caraïbes.",en:"Memorial of the 1902 volcanic disaster in Saint-Pierre — the Caribbean's Pompeii."}}
+  ],
+  spots:[
+    {name:"Morne Gommier — Panorama 360°",placeId:"ChIJ0cLNu26hQIwRlbHu2c-xzLY",rating:4.2,badge:{fr:"Vue · Photo",en:"View · Photo"},
+     note:{fr:"Point de vue 360° sur toute l'île depuis le Marin. Entrée 5€. Guide sur place.",en:"360° viewpoint over the whole island from Le Marin. €5 entry. Guide on site."}},
+    {name:"Rocher du Diamant — Point de vue",placeId:"ChIJDRaz8dwbQIwRmlpTsNuUmo0",rating:4.6,badge:{fr:"Vue · Photo",en:"View · Photo"},
+     note:{fr:"Panorama iconique sur le Rocher du Diamant depuis la côte. Spot photo incontournable.",en:"Iconic panoramic view of Diamond Rock from the coast. Ultimate photo spot."}},
+    {name:"Distillerie Trois-Rivières",placeId:"ChIJy66CHVsfQIwRxf9-QKH0lMM",rating:4.5,badge:{fr:"Rhum · Visite",en:"Rum · Tour"},
+     note:{fr:"Visite de distillerie avec dégustation — cadre magnifique, personnel passionné. 8€.",en:"Distillery visit and tasting — stunning grounds, passionate staff. €8."}}
+  ]
+};
+
+/* ============================================================
+   i18n
+   ============================================================ */
+const CAT_KEYS = ["plages","nautique","restaurants","pizzeria","marche","courses","shopping","galeries","enfants","soirees","histoire","spots"];
+
+const I18N = {
+  fr:{
+    eyebrow:"CONCIERGERIE · SAINTE-LUCE",bungalowWord:"BUNGALOW",qrLabel:"QR",
+    qrInstructions:"Imprimez ce QR code et collez-le dans le bungalow : vos voyageurs n'auront qu'à le scanner pour ouvrir ce guide sur leur téléphone.",
+    close:"Fermer",
+    tabs:{wifi:"Wi-Fi",logement:"Logement",alentours:"Alentours",allergenes:"Allergènes",chambre:"Chambre",avis:"Avis"},
+    wifi:{title:"Connexion Wi-Fi",ssid:"Nom du réseau",pass:"Mot de passe",copy:"Copier",copied:"Copié !",show:"Afficher",hide:"Masquer",help:"Pas de signal ? Appelez-nous"},
+    logement:{
+      checkin:"Arrivée",checkout:"Départ",
+      equipTitle:"Équipements",
+      equip:["Climatisation","Eau chaude","Bouilloire","Linge de maison fourni","Cuisine équipée","Terrasse privée"],
+      servicesTitle:"Services sur demande",
+      services:["Cocktail de bienvenue","Formule champagne","Formule petit-déjeuner du jour en chambre","Massage bien-être","Ateliers & activités","Formule anniversaire","Formule lune de miel","Formule retraité","Décoration romantique"],
+      rulesTitle:"Règles de la maison",
+      rules:["Non-fumeur à l'intérieur","Calme après 22h","Animaux sur accord préalable uniquement"],
+      contactTitle:"Contact conciergerie",
+      onsite:"Présente sur place pendant les périodes de forte occupation."
+    },
+    catLabels:{
+      plages:"🏖️ Plages",nautique:"🤿 Activités nautiques",restaurants:"🍽️ Restaurants",
+      pizzeria:"🍕 Pizzeria",marche:"🧺 Marché",courses:"🛒 Libre-service & courses",
+      shopping:"🛍️ Shopping",galeries:"🎨 Galeries & artisanat",enfants:"👦 Pour les enfants",
+      soirees:"🎉 Soirées & boîtes de nuit",histoire:"🏛️ Monuments historiques",
+      spots:"📸 Spots photo & plus belles vues"
+    },
+    filterAll:"Tout voir",
+    maps:"Itinéraire",
+    allergenes:{
+      title:"Allergènes — Petit-déjeuner du jour",
+      intro:"Notre formule petit-déjeuner en chambre peut contenir les allergènes suivants. Signalez-nous impérativement toute allergie avant la commande.",
+      contact:"Signaler une allergie",
+      list:[
+        {icon:"🌾",name:"Gluten",note:"Pain, viennoiseries, céréales"},
+        {icon:"🥛",name:"Lait & lactose",note:"Beurre, yaourt, fromage, lait"},
+        {icon:"🥚",name:"Œufs",note:"Œufs brouillés, omelette, pâtisseries"},
+        {icon:"🥜",name:"Arachides",note:"Certaines pâtes à tartiner, gâteaux"},
+        {icon:"🌳",name:"Fruits à coque",note:"Noix, noisettes, amandes (muesli, confiture)"},
+        {icon:"🐟",name:"Poisson",note:"Présent dans certaines formules salées"},
+        {icon:"🦐",name:"Crustacés & coquillages",note:"Selon formules du jour"},
+        {icon:"🍯",name:"Miel",note:"Disponible sur demande — informez-nous si allergie"},
+        {icon:"🫘",name:"Soja",note:"Lait végétal alternatif disponible"},
+        {icon:"🌿",name:"Céleri / Moutarde",note:"Présents dans certains assaisonnements"}
+      ],
+      customLabel:"Autre allergie",
+      customPlaceholder:"Précisez ici si autre allergie…",
+      notes:["Sans gluten — sur demande 24h à l'avance","Végétarien","Vegan — sur demande 24h à l'avance","Sans lactose"]
+    },
+    chambre:{
+      title:"Chambres spécifiques",
+      pmrTitle:"♿ Chambre PMR",
+      pmrDesc:"Chambre aménagée pour les personnes à mobilité réduite.",
+      pmrEquip:["Accès plain-pied, sans marche","Salle de bain adaptée avec siège de douche","Barres d'appui aux toilettes et douche","Largeur de passage ≥ 90 cm","Place de parking PMR réservée à proximité"],
+      pmrNote:"Prévenez-nous à la réservation pour préparer l'espace. Certains équipements supplémentaires disponibles sur demande.",
+      babyTitle:"👶 Chambre avec bébé (0–3 ans)",
+      babyDesc:"Un espace pensé pour accueillir les tout-petits en toute sérénité.",
+      babyEquip:["Lit bébé / cododo disponible — à demander à la réservation","Baignoire bébé fournie"],
+      babyNote:"Les équipements bébé sont fournis gratuitement. Précisez l'âge et les besoins de votre enfant à la réservation."
+    },
+    avis:{
+      title:"Votre avis compte",subtitle:"Votre séjour touche à sa fin ? Dites-nous comment ça s'est passé.",
+      name:"Votre prénom (optionnel)",comment:"Votre commentaire",submit:"Envoyer mon avis",
+      thanks:"Merci pour votre retour, il compte beaucoup pour nous !",
+      recent:"Avis des voyageurs",noReviews:"Aucun avis pour le moment — soyez le premier !",
+      average:"note moyenne",reviewsWord:"avis"
+    }
+  },
+  en:{
+    eyebrow:"CONCIERGE · SAINTE-LUCE",bungalowWord:"BUNGALOW",qrLabel:"QR",
+    qrInstructions:"Print this QR code and stick it inside the bungalow: guests just scan it to open this guide on their phone.",
+    close:"Close",
+    tabs:{wifi:"Wi-Fi",logement:"The place",alentours:"Nearby",allergenes:"Allergens",chambre:"Room",avis:"Reviews"},
+    wifi:{title:"Wi-Fi connection",ssid:"Network name",pass:"Password",copy:"Copy",copied:"Copied!",show:"Show",hide:"Hide",help:"No signal? Call us"},
+    logement:{
+      checkin:"Check-in",checkout:"Check-out",
+      equipTitle:"Amenities",
+      equip:["Air conditioning","Hot water","Kettle","Linens provided","Equipped kitchen","Private terrace"],
+      servicesTitle:"Available on request",
+      services:["Welcome cocktail","Champagne package","Breakfast of the day in room","Wellness massage","Workshops & activities","Birthday package","Honeymoon package","Retirement package","Romantic decoration"],
+      rulesTitle:"House rules",
+      rules:["No smoking indoors","Please keep quiet after 10pm","Pets only with prior agreement"],
+      contactTitle:"Concierge contact",
+      onsite:"On site during peak occupancy periods."
+    },
+    catLabels:{
+      plages:"🏖️ Beaches",nautique:"🤿 Water activities",restaurants:"🍽️ Restaurants",
+      pizzeria:"🍕 Pizzeria",marche:"🧺 Market",courses:"🛒 Groceries",
+      shopping:"🛍️ Shopping",galeries:"🎨 Galleries & crafts",enfants:"👦 For children",
+      soirees:"🎉 Nights out & clubs",histoire:"🏛️ Historic landmarks",
+      spots:"📸 Photo spots & best views"
+    },
+    filterAll:"See all",
+    maps:"Directions",
+    allergenes:{
+      title:"Allergens — Breakfast of the day",
+      intro:"Our in-room breakfast may contain the following allergens. Please let us know about any allergies before ordering.",
+      contact:"Report an allergy",
+      list:[
+        {icon:"🌾",name:"Gluten",note:"Bread, pastries, cereals"},
+        {icon:"🥛",name:"Milk & lactose",note:"Butter, yogurt, cheese, milk"},
+        {icon:"🥚",name:"Eggs",note:"Scrambled eggs, omelette, pastries"},
+        {icon:"🥜",name:"Peanuts",note:"Some spreads and cakes"},
+        {icon:"🌳",name:"Tree nuts",note:"Walnuts, hazelnuts, almonds (muesli, jam)"},
+        {icon:"🐟",name:"Fish",note:"Present in some savoury options"},
+        {icon:"🦐",name:"Shellfish",note:"Depending on the daily menu"},
+        {icon:"🍯",name:"Honey",note:"Available on request — let us know if allergic"},
+        {icon:"🫘",name:"Soy",note:"Plant-based milk alternative available"},
+        {icon:"🌿",name:"Celery / Mustard",note:"Present in some dressings"}
+      ],
+      customLabel:"Other allergy",
+      customPlaceholder:"Specify here if other allergy…",
+      notes:["Gluten-free — request 24h in advance","Vegetarian","Vegan — request 24h in advance","Lactose-free"]
+    },
+    chambre:{
+      title:"Specific room options",
+      pmrTitle:"♿ Accessible room (PRM)",
+      pmrDesc:"Room fitted for guests with reduced mobility.",
+      pmrEquip:["Step-free access","Adapted bathroom with shower seat","Grab rails at toilet and shower","Doorway width ≥ 90 cm","Reserved accessible parking nearby"],
+      pmrNote:"Please notify us at booking so we can prepare everything. Additional equipment available on request.",
+      babyTitle:"👶 Room with baby (0–3 years)",
+      babyDesc:"A space designed to welcome little ones in peace.",
+      babyEquip:["Baby cot / co-sleeping cot available — request at booking","Baby bathtub provided"],
+      babyNote:"All baby equipment is provided free of charge. Please specify your child's age and needs at booking."
+    },
+    avis:{
+      title:"Your feedback matters",subtitle:"Wrapping up your stay? Tell us how it went.",
+      name:"Your first name (optional)",comment:"Your comment",submit:"Send my review",
+      thanks:"Thank you for your feedback, it means a lot to us!",
+      recent:"Guest reviews",noReviews:"No reviews yet — be the first!",
+      average:"average rating",reviewsWord:"reviews"
+    }
+  }
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state={lang:"fr",bungalow:1,tab:"wifi",passVisible:false,justSubmitted:false,activeFilter:"all"};
+function t(){return I18N[state.lang];}
+function currentBungalow(){return BUNGALOWS.find(b=>b.id===state.bungalow);}
+
+/* ============================================================
+   CHROME
+   ============================================================ */
+function renderChrome(){
+  document.getElementById("eyebrowTxt").textContent=t().eyebrow;
+  document.getElementById("bungalowWord").textContent=t().bungalowWord;
+  document.getElementById("bungalowNum").textContent=String(state.bungalow).padStart(2,"0");
+  document.getElementById("langToggle").innerHTML="🌐 "+(state.lang==="fr"?"EN":"FR");
+  document.getElementById("qrBtnLabel").textContent=t().qrLabel;
+  document.getElementById("qrInstructions").textContent=t().qrInstructions;
+  document.getElementById("closeQr").textContent=t().close;
+  Object.entries(t().tabs).forEach(([k,v])=>{const el=document.getElementById("lbl-"+k);if(el)el.textContent=v;});
+  const sel=document.getElementById("bungalowSelect");
+  sel.innerHTML="";
+  BUNGALOWS.forEach(b=>{
+    const btn=document.createElement("button");
+    btn.textContent=String(b.id).padStart(2,"0");
+    if(b.id===state.bungalow)btn.classList.add("active");
+    btn.onclick=()=>{state.bungalow=b.id;state.passVisible=false;state.justSubmitted=false;renderAll();};
+    sel.appendChild(btn);
+  });
+  document.querySelectorAll(".tabbar button").forEach(btn=>btn.classList.toggle("active",btn.dataset.tab===state.tab));
+}
+
+/* ============================================================
+   WIFI
+   ============================================================ */
+function renderWifi(){
+  const b=currentBungalow();const L=t().wifi;
+  return`<div class="card">
+    <p class="section-title" style="margin-bottom:10px;">${L.title}</p>
+    <div class="wifi-row">
+      <div><p class="wifi-label">${L.ssid}</p><p class="wifi-value">${b.ssid}</p></div>
+      <button class="icon-btn" onclick="copyText('${b.ssid}',this,'${L.copy}','${L.copied}')">${L.copy}</button>
+    </div>
+    <div class="wifi-row">
+      <div><p class="wifi-label">${L.pass}</p><p class="wifi-value">${state.passVisible?b.pass:"•".repeat(b.pass.length)}</p></div>
+      <div style="display:flex;gap:6px;">
+        <button class="icon-btn" onclick="togglePass()">${state.passVisible?L.hide:L.show}</button>
+        <button class="icon-btn" onclick="copyText('${b.pass}',this,'${L.copy}','${L.copied}')">${L.copy}</button>
+      </div>
+    </div>
+  </div>
+  <p class="help-line">📞 ${L.help} : <a href="tel:${CONTACT_PHONE.replace(/\s/g,'')}" style="font-weight:700;">${CONTACT_PHONE}</a></p>`;
+}
+function togglePass(){state.passVisible=!state.passVisible;render();}
+function copyText(text,btn,label,copiedLabel){
+  navigator.clipboard.writeText(text).then(()=>{
+    const old=btn.textContent;btn.textContent=copiedLabel;
+    setTimeout(()=>{btn.textContent=old===copiedLabel?label:old;},1400);
+  }).catch(()=>alert(text));
+}
+
+/* ============================================================
+   LOGEMENT
+   ============================================================ */
+function renderLogement(){
+  const b=currentBungalow();const L=t().logement;
+  const li=arr=>arr.map(x=>`<li><span class="dot">—</span>${x}</li>`).join("");
+  return`<div class="info-grid">
+    <div class="info-tile"><span class="utility">${L.checkin}</span><p class="stencil" style="margin:0;">${b.checkin}</p></div>
+    <div class="info-tile"><span class="utility">${L.checkout}</span><p class="stencil" style="margin:0;">${b.checkout}</p></div>
+  </div>
+  <div class="card"><p class="section-title" style="font-size:17px;margin-bottom:6px;">${L.equipTitle}</p><ul class="clean">${li(L.equip)}</ul></div>
+  <div class="card"><p class="section-title" style="font-size:17px;margin-bottom:6px;">${L.servicesTitle}</p><ul class="clean">${li(L.services)}</ul></div>
+  <div class="card"><p class="section-title" style="font-size:17px;margin-bottom:6px;">${L.rulesTitle}</p><ul class="clean">${li(L.rules)}</ul></div>
+  <div class="card contact-card">
+    <p class="section-title" style="font-size:17px;color:var(--sand);margin-bottom:8px;">${L.contactTitle}</p>
+    <a href="tel:${CONTACT_PHONE.replace(/\s/g,'')}">${CONTACT_PHONE}</a>
+    <p style="font-size:13px;margin:8px 0 0;color:rgba(243,236,220,0.75);">${L.onsite}</p>
+  </div>`;
+}
+
+/* ============================================================
+   ALENTOURS
+   ============================================================ */
+function renderAlentours(){
+  const L=t();
+  const activeCats=state.activeFilter==="all" ? CAT_KEYS : [state.activeFilter];
+
+  const chips=[
+    `<button class="filter-chip ${state.activeFilter==="all"?"active":""}" onclick="setFilter('all')">${L.filterAll}</button>`,
+    ...CAT_KEYS.map(k=>`<button class="filter-chip ${state.activeFilter===k?"active":""}" onclick="setFilter('${k}')">${L.catLabels[k]}</button>`)
+  ].join("");
+
+  const cards=activeCats.map(cat=>{
+    const items=PLACES[cat].map(p=>{
+      const badge=p.badge?`<span class="place-badge">${p.badge[state.lang]}</span>`:"";
+      return`<div class="card place-card">
+        <div>
+          <p class="place-name">${p.name}</p>
+          <div class="place-meta"><span class="place-rating">★ ${p.rating}</span>${badge}</div>
+          <p class="place-note">${p.note[state.lang]}</p>
+        </div>
+        <a class="place-link" target="_blank" rel="noopener" href="https://www.google.com/maps/place/?q=place_id:${p.placeId}">${L.maps}</a>
+      </div>`;
+    }).join("");
+    return`<p class="cat-title">${L.catLabels[cat]}</p>${items}`;
+  }).join("");
+
+  return`<div class="filters">${chips}</div>${cards}`;
+}
+function setFilter(key){state.activeFilter=key;render();}
+
+/* ============================================================
+   AVIS
+   ============================================================ */
+let avisDraft={rating:0,name:"",comment:""};
+
+async function loadReviews(id){
+  try{const r=await window.storage.get("avis-bungalow-"+id,true);return r?JSON.parse(r.value):[];}
+  catch(e){return[];}
+}
+async function saveReview(id,review){
+  const list=await loadReviews(id);list.unshift(review);
+  try{await window.storage.set("avis-bungalow-"+id,JSON.stringify(list),true);}
+  catch(e){console.error(e);}
+}
+
+function renderAvis(){
+  const L=t().avis;
+  const stars=[1,2,3,4,5].map(n=>`<span class="star ${n<=avisDraft.rating?"filled":""}" onclick="setRating(${n})">★</span>`).join("");
+  return`<p class="section-title">${L.title}</p>
+  <p class="muted" style="margin-top:-8px;margin-bottom:14px;">${L.subtitle}</p>
+  ${state.justSubmitted?`<div class="thanks-msg">✓ ${L.thanks}</div>`:`
+  <div class="card">
+    <div class="stars">${stars}</div>
+    <input type="text" id="avisName" placeholder="${L.name}" value="${avisDraft.name}" oninput="avisDraft.name=this.value">
+    <textarea id="avisComment" placeholder="${L.comment}" oninput="avisDraft.comment=this.value">${avisDraft.comment}</textarea>
+    <button class="submit-btn" ${avisDraft.rating===0?"disabled":""} onclick="submitAvis()">${L.submit}</button>
+  </div>`}
+  <div id="reviewsBlock"><p class="muted">…</p></div>`;
+}
+function setRating(n){avisDraft.rating=n;render();}
+async function submitAvis(){
+  await saveReview(state.bungalow,{
+    rating:avisDraft.rating,
+    name:avisDraft.name||(state.lang==="fr"?"Voyageur":"Guest"),
+    comment:avisDraft.comment,
+    date:new Date().toLocaleDateString(state.lang==="fr"?"fr-FR":"en-GB")
+  });
+  state.justSubmitted=true;avisDraft={rating:0,name:"",comment:""};render();
+}
+async function renderReviewsBlock(){
+  const block=document.getElementById("reviewsBlock");if(!block)return;
+  const L=t().avis;
+  const reviews=await loadReviews(state.bungalow);
+  if(!reviews.length){block.innerHTML=`<p class="muted">${L.noReviews}</p>`;return;}
+  const avg=(reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1);
+  const items=reviews.slice(0,15).map(r=>`
+    <div class="review-item">
+      <div class="review-head"><span>${r.name}</span><span class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</span></div>
+      ${r.comment?`<p class="review-text">${escapeHtml(r.comment)}</p>`:""}
+      <p class="review-date">${r.date}</p>
+    </div>`).join("");
+  block.innerHTML=`<p class="section-title" style="font-size:17px;">${L.recent}</p>
+  <div class="card"><div class="avg-row"><span class="avg-num">${avg}</span><span class="muted">/5 · ${reviews.length} ${L.reviewsWord}</span></div>${items}</div>`;
+}
+function escapeHtml(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+/* ============================================================
+   ALLERGENES
+   ============================================================ */
+function renderAllergenes(){
+  const L=t().allergenes;
+  if(!window._allergyChecked) window._allergyChecked={};
+  if(!window._allergyCustom) window._allergyCustom="";
+  const rows=L.list.map((a,i)=>{
+    const checked=window._allergyChecked[i]||false;
+    return`<label class="allergy-row ${checked?"allergy-checked":""}">
+      <div class="allergy-info">
+        <span class="allergy-name">${a.icon} ${a.name}</span>
+        <span class="muted allergy-note">${a.note}</span>
+      </div>
+      <input type="checkbox" class="allergy-cb" data-idx="${i}" ${checked?"checked":""} onchange="toggleAllergy(${i},this.checked)">
+    </label>`;
+  }).join("");
+  const notes=L.notes.map(n=>`<li><span class="dot">✓</span>${n}</li>`).join("");
+  return`<p class="section-title">${L.title}</p>
+  <p class="muted" style="margin-top:-8px;margin-bottom:14px;">${L.intro}</p>
+  <div class="card">${rows}
+    <div class="allergy-custom-row">
+      <span class="allergy-name">➕ ${L.customLabel}</span>
+      <input type="text" class="allergy-custom-input" placeholder="${L.customPlaceholder}" value="${window._allergyCustom}" oninput="window._allergyCustom=this.value">
+    </div>
+  </div>
+  <div class="card">
+    <p class="section-title" style="font-size:17px;margin-bottom:8px;">${L.noteTitle}</p>
+    <ul class="clean">${notes}</ul>
+  </div>
+  <p class="help-line">📞 ${L.contact} : <a href="tel:${CONTACT_PHONE.replace(/\s/g,'')}" style="font-weight:700;">${CONTACT_PHONE}</a></p>`;
+}
+function toggleAllergy(idx,val){
+  if(!window._allergyChecked) window._allergyChecked={};
+  window._allergyChecked[idx]=val;
+  render();
+}
+
+/* ============================================================
+   CHAMBRE SPÉCIFIQUE
+   ============================================================ */
+function renderChambre(){
+  const L=t().chambre;
+  const pmrLi=L.pmrEquip.map(x=>`<li><span class="dot">—</span>${x}</li>`).join("");
+  const babyLi=L.babyEquip.map(x=>`<li><span class="dot">—</span>${x}</li>`).join("");
+  return`<p class="section-title">${L.title}</p>
+  <div class="card">
+    <p class="section-title" style="font-size:19px;margin-bottom:4px;">${L.pmrTitle}</p>
+    <p class="muted" style="margin-bottom:12px;">${L.pmrDesc}</p>
+    <ul class="clean">${pmrLi}</ul>
+    <p style="font-size:13px;margin-top:12px;padding:10px;background:var(--sand);border-radius:8px;font-family:'Inter',sans-serif;">${L.pmrNote}</p>
+  </div>
+  <div class="card">
+    <p class="section-title" style="font-size:19px;margin-bottom:4px;">${L.babyTitle}</p>
+    <p class="muted" style="margin-bottom:12px;">${L.babyDesc}</p>
+    <ul class="clean">${babyLi}</ul>
+    <p style="font-size:13px;margin-top:12px;padding:10px;background:var(--sand);border-radius:8px;font-family:'Inter',sans-serif;">${L.babyNote}</p>
+  </div>
+  <p class="help-line">📞 <a href="tel:${CONTACT_PHONE.replace(/\s/g,'')}" style="font-weight:700;">${CONTACT_PHONE}</a></p>`;
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render(){
+  const map={wifi:renderWifi,logement:renderLogement,alentours:renderAlentours,allergenes:renderAllergenes,chambre:renderChambre,avis:renderAvis};
+  document.getElementById("tabContent").innerHTML=map[state.tab]();
+  if(state.tab==="avis")renderReviewsBlock();
+}
+function renderAll(){renderChrome();render();}
+
+document.querySelectorAll(".tabbar button").forEach(btn=>{
+  btn.addEventListener("click",()=>{state.tab=btn.dataset.tab;renderAll();});
+});
+document.getElementById("langToggle").addEventListener("click",()=>{
+  state.lang=state.lang==="fr"?"en":"fr";renderAll();
+});
+document.getElementById("qrBtn").addEventListener("click",()=>{
+  document.getElementById("qrModal").classList.remove("hidden");
+  document.getElementById("qrcode").innerHTML="";
+  new QRCode(document.getElementById("qrcode"),{text:window.location.href,width:170,height:170,colorDark:"#15332D",colorLight:"#ffffff"});
+});
+document.getElementById("closeQr").addEventListener("click",()=>{
+  document.getElementById("qrModal").classList.add("hidden");
+});
+
+renderAll();
+</script>
+</body>
+</html>
